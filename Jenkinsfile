@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the code...'
-                
+                echo 'Building the code...'        
             }
             post {
                 success {
@@ -15,5 +14,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+            }
+            post {
+                success {
+                    mail to: 'imesha.ilangasinghe@gmail.com',
+                         subject: "Test Status: SUCCESS",
+                         body: "The Test stage completed successfully."
+                }
+            }
     }
 }
