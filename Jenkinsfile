@@ -1,4 +1,3 @@
-//code
 pipeline {
     agent any
 
