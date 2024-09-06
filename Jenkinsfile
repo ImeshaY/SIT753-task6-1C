@@ -14,20 +14,17 @@ pipeline {
                 echo 'Task performed: Run unit tests to ensure the code functions as expected and run integration tests to ensure the different components of the application work together as expected'
                 echo 'Tool: TestNG'   
             }
-            script {
-                    // Capture the logs into a file
-                def logFile = "unit_integration_test.log"
-                sh "mvn test | tee ${logFile}"
-            }
             post {
                 success {
-                    mail to: 'imesha.ilangasinghe@gmail.com',
+                    mail attachLog: true,
+                    to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Unit and Integration Test Status: SUCCESS",
                     body: "The Unit and Integration Test stage completed successfully.",
                     attachmentsPattern: 'unit_integration_test.log'
                 }
                 failure {
-                    mail to: 'imesha.ilangasinghe@gmail.com',
+                    mail attachLog: true,
+                    to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Unit and Integration Test Status: FAILURE",
                     body: "The Unit and Integration Test stage failed. Please check the attached logs for details.",
                     attachmentsPattern: 'unit_integration_test.log'
@@ -49,16 +46,16 @@ pipeline {
             }
             post {
                 success {
-                    mail to: 'imesha.ilangasinghe@gmail.com',
+                    mail attachLog: true, 
+                    to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Security Scan Status: SUCCESS",
                     body: "The Security Scan stage completed successfully.",
-                    attachLog: true
                 }
                 failure {
-                    mail to: 'imesha.ilangasinghe@gmail.com',
+                    mail attachLog: true,
+                    to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Security Scan Status: FAILURE",
                     body: "The Security Scan stage failed. Please check the attached logs for details.",
-                    attachLog: true
                 }
             }
         }
