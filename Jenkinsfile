@@ -19,13 +19,13 @@ pipeline {
                     mail to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Unit and Integration Test Status: SUCCESS",
                     body: "The Unit and Integration Test stage completed successfully.",
-                    attachLog: true
+                    emailext attachLog: true
                 }
                 failure {
                     mail to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Unit and Integration Test Status: FAILURE",
                     body: "The Unit and Integration Test stage failed. Please check the attached logs for details.",
-                    attachLog: true
+                    emailext attachLog: true
                 }
             }
         }
@@ -47,13 +47,13 @@ pipeline {
                     mail to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Security Scan Status: SUCCESS",
                     body: "The Security Scan stage completed successfully.",
-                    attachLog: true
+                    emailext attachLog: true
                 }
                 failure {
                     mail to: 'imesha.ilangasinghe@gmail.com',
                     subject: "Security Scan Status: FAILURE",
                     body: "The Security Scan stage failed. Please check the attached logs for details.",
-                    attachLog: true
+                    emailext attachLog: true
                 }
             }
         }
