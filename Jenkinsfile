@@ -17,9 +17,9 @@ pipeline {
             post {
                 success {
                     mail to: 'imesha.ilangasinghe@gmail.com',
-                         subject: "Unit and Integration Test Status: SUCCESS",
-                         body: "The Unit and Integration Test stage completed successfully."
-                         attachLog: true
+                    subject: "Unit and Integration Test Status: SUCCESS",
+                    body: "The Unit and Integration Test stage completed successfully."
+                    attachLog: true
                 }
                 failure {
                     mail to: 'imesha.ilangasinghe@gmail.com',
@@ -45,9 +45,9 @@ pipeline {
             post {
                 success {
                     mail to: 'imesha.ilangasinghe@gmail.com',
-                         subject: "Security Scan Status: SUCCESS",
-                         body: "The Security Scan stage completed successfully."
-                         attachLog: true
+                    subject: "Security Scan Status: SUCCESS",
+                    body: "The Security Scan stage completed successfully."
+                    attachLog: true
                 }
                 failure {
                     mail to: 'imesha.ilangasinghe@gmail.com',
