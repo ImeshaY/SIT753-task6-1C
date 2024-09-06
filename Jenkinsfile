@@ -26,5 +26,6 @@ pipeline {
                          body: "The Test stage completed successfully."
                 }
             }
+        }
     }
 }
