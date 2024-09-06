@@ -16,7 +16,7 @@ pipeline {
             }
             post {
                 success {
-                    mail(
+                    emailext(
                         to: 'imesha.ilangasinghe@gmail.com',
                         subject: "Unit and Integration Test Status: SUCCESS",
                         body: "The Unit and Integration Test stage completed successfully.",
@@ -24,7 +24,7 @@ pipeline {
                     )
                 }
                 failure {
-                    mail(
+                    emailext(
                         to: 'imesha.ilangasinghe@gmail.com',
                         subject: "Unit and Integration Test Status: FAILURE",
                         body: "The Unit and Integration Test stage failed. Please check the attached logs for details.",
