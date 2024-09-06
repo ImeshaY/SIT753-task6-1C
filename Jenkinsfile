@@ -12,22 +12,27 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Task performed: Run unit tests to ensure the code functions as expected and run integration tests to ensure the different components of the application work together as expected'
-                echo 'Tool: TestNG'   
+                echo 'Tool: TestNG'
+                script {
+                    // Capture the logs into a file
+                    def logFile = "unit_integration_test.log"
+                    sh "mvn test | tee ${logFile}"
+                }
             }
             post {
                 success {
-                    mail attachLog: true,
-                    to: 'imesha.ilangasinghe@gmail.com',
-                    subject: "Unit and Integration Test Status: SUCCESS",
-                    body: "The Unit and Integration Test stage completed successfully.",
-                    attachmentsPattern: 'unit_integration_test.log'
+                    archiveArtifacts artifacts: 'unit_integration_test.log', allowEmptyArchive: true
+                    mail to: 'imesha.ilangasinghe@gmail.com',
+                         subject: "Unit and Integration Test Status: SUCCESS",
+                         body: "The Unit and Integration Test stage completed successfully. Logs are attached.",
+                         attachmentsPattern: 'unit_integration_test.log'
                 }
                 failure {
-                    mail attachLog: true,
-                    to: 'imesha.ilangasinghe@gmail.com',
-                    subject: "Unit and Integration Test Status: FAILURE",
-                    body: "The Unit and Integration Test stage failed. Please check the attached logs for details.",
-                    attachmentsPattern: 'unit_integration_test.log'
+                    archiveArtifacts artifacts: 'unit_integration_test.log', allowEmptyArchive: true
+                    mail to: 'imesha.ilangasinghe@gmail.com',
+                         subject: "Unit and Integration Test Status: FAILURE",
+                         body: "The Unit and Integration Test stage failed. Please check the attached logs for details.",
+                         attachmentsPattern: 'unit_integration_test.log'
                 }
             }
         }
@@ -42,20 +47,27 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Task performed: Perform a security scan on the code using a tool to identify any vulnerabilities'
-                echo 'Tool: OWASP Dependency-Check'  
+                echo 'Tool: OWASP Dependency-Check'
+                script {
+                    // Capture the logs into a file
+                    def logFile = "security_scan.log"
+                    sh "mvn dependency-check:check | tee ${logFile}"
+                }
             }
             post {
                 success {
-                    mail attachLog: true, 
-                    to: 'imesha.ilangasinghe@gmail.com',
-                    subject: "Security Scan Status: SUCCESS",
-                    body: "The Security Scan stage completed successfully.",
+                    archiveArtifacts artifacts: 'security_scan.log', allowEmptyArchive: true
+                    mail to: 'imesha.ilangasinghe@gmail.com',
+                         subject: "Security Scan Status: SUCCESS",
+                         body: "The Security Scan stage completed successfully. Logs are attached.",
+                         attachmentsPattern: 'security_scan.log'
                 }
                 failure {
-                    mail attachLog: true,
-                    to: 'imesha.ilangasinghe@gmail.com',
-                    subject: "Security Scan Status: FAILURE",
-                    body: "The Security Scan stage failed. Please check the attached logs for details.",
+                    archiveArtifacts artifacts: 'security_scan.log', allowEmptyArchive: true
+                    mail to: 'imesha.ilangasinghe@gmail.com',
+                         subject: "Security Scan Status: FAILURE",
+                         body: "The Security Scan stage failed. Please check the attached logs for details.",
+                         attachmentsPattern: 'security_scan.log'
                 }
             }
         }
